@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Crypto_app_Socket</string>
+    <string name="markets">Markets</string>
+    <string name="history">History</string>
+
+</resources>
