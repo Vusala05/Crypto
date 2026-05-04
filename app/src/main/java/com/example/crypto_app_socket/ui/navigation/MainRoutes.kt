@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.crypto_app_socket.presentation.detail.DetailView
 import com.example.crypto_app_socket.presentation.home.HomeView
 
@@ -27,8 +28,12 @@ fun MainRoutes(
             HomeView(navController = navController)
         }
 
-        composable<AppRoutes.Detail> {
-            DetailView(navController = navController)
+        composable<AppRoutes.Detail> { backStackEntry ->
+            val args = backStackEntry.toRoute<AppRoutes.Detail>()
+            DetailView(
+                navController = navController,
+                id = args.id
+                )
         }
     }
 

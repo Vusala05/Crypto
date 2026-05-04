@@ -7,7 +7,8 @@ data class CoinUiModel(
     val image: String,
     val price: Double,
     val changePercent: Double,
-    val isUp: Boolean
+    val isUp: Boolean,
+    val lastUpdated : String ? =null
 ) {
     companion object {
         val empty = CoinUiModel(

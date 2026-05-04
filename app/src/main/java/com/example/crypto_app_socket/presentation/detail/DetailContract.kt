@@ -6,7 +6,7 @@ import com.example.crypto_app_socket.presentation.home.HomeContract
 object DetailContract {
 
     sealed interface Intent {
-
+        data class GetCoinDetail (val id : String) : Intent
     }
 
     sealed interface Effect {
