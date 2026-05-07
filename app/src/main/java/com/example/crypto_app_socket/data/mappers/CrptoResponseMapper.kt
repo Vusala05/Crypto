@@ -1,7 +1,10 @@
 package com.example.crypto_app_socket.data.mappers
 
+import com.example.crypto_app_socket.core.constants.StatusState
 import com.example.crypto_app_socket.data.model.CoinModel
+import com.example.crypto_app_socket.data.model.CoinUpdateModel
 import com.example.crypto_app_socket.domain.uimodel.CoinUiModel
+import com.example.crypto_app_socket.domain.uimodel.CoinUpdateUiModel
 
 fun CoinModel.toUiModel() : CoinUiModel = CoinUiModel(
     id =  id ,
@@ -9,9 +12,16 @@ fun CoinModel.toUiModel() : CoinUiModel = CoinUiModel(
     longName = longName ?:"",
     image = image ?:"",
     price = price ?: 0.0 ,
-    changePercent = changePercent ?: 0.0,
+    percentChange = changePercent ?: 0.0,
     isUp = isUp ?: false,
-    lastUpdated = null
+)
+
+fun CoinUpdateModel.toUiModel() : CoinUpdateUiModel = CoinUpdateUiModel(
+    name = this.name,
+    price = this.price,
+    timestamp = this.timestamp,
+    isUp = null,
+    percentChange = null
 )
 
 

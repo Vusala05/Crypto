@@ -1,0 +1,12 @@
+package com.example.crypto_app_socket.domain.usecases
+
+import com.example.crypto_app_socket.domain.repository.DetailRepository
+import com.example.crypto_app_socket.domain.repository.HomeRepository
+import javax.inject.Inject
+
+    class SubscribeCoinDetailUseCase @Inject constructor(val repository: DetailRepository) {
+
+        operator fun invoke(id : String){
+            return repository.subscribeDetailCoin(id)
+        }
+    }

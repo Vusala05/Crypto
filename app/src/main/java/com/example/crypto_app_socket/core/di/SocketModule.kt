@@ -26,8 +26,4 @@ object SocketModule {
         }.build()
     )
 
-    @Provides
-    @Singleton
-    fun provideWebSocket(socket: io.socket.client.Socket): io.socket.client.Socket =
-        socket
 }

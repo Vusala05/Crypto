@@ -12,7 +12,9 @@ data class AppColors(
     val onBackgroundText : Color,
     val onBackgroundDown : Color,
     val onBackgroundUp : Color,
-    val graphColor : Color
+    val graphColor : Color,
+    val stableColor : Color,
+    val graphLineColor : Color
 )
 
 val darkModeColor = AppColors(
@@ -20,6 +22,8 @@ val darkModeColor = AppColors(
     onBackgroundText = darkTextColor,
     onBackgroundUp = upColor,
     onBackgroundDown = downColor,
-    graphColor = graphColor
+    graphColor = graphColor,
+    stableColor = stableColor,
+    graphLineColor = graphLineColor
 
 )

@@ -34,6 +34,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -44,6 +45,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.graphics.shapes)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -82,5 +84,9 @@ dependencies {
     implementation("io.socket:socket.io-client:2.1.0") {
         exclude(group = "org.json", module = "json")
     }
+
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+
 
 }

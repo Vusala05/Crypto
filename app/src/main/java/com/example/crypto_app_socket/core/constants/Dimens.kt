@@ -21,6 +21,8 @@ object Dimens {
     val sp18 = 18.sp
     val sp14 = 14.sp
 
+
+    val dp2 = 2.dp
     val dp01 = 4.dp//formula : index -> Index * 4
     val dp02 = 8.dp
     val dp03 = 12.dp

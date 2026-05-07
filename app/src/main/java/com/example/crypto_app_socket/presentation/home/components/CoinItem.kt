@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
@@ -28,65 +29,75 @@ fun CoinItem(
     modifier: Modifier = Modifier,
     coinUiModel: CoinUiModel,
     onClick : (String) -> Unit
-){
+) {
     val colors = LocalColors.current
-
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable{
-                onClick(coinUiModel.id)
-            },
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Row( verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(BaseTheme.dimens.dp01)) {
-            AsyncImage(
+    Box(modifier = Modifier.padding(vertical = BaseTheme.dimens.dp04)) {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .clickable {
+                    onClick(coinUiModel.id)
+                },
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(BaseTheme.dimens.dp01)
+            ) {
+                AsyncImage(
                     model = coinUiModel.image,
                     contentDescription = null,
                     modifier = Modifier.size(BaseTheme.dimens.logoSize)
                         .clip(shape = CircleShape)
                 )
-            Column {
-                Text(
-                    text = coinUiModel.shortName,
-                    style = BaseTheme.textStyle.t16.copy(color = colors.onBackgroundText))
-                Text(
-                    text = coinUiModel.longName,
-                    style = BaseTheme.textStyle.t14.copy(color = colors.onBackgroundText))
+                Column {
+                    Text(
+                        text = coinUiModel.shortName,
+                        style = BaseTheme.textStyle.t16.copy(color = colors.onBackgroundText)
+                    )
+                    Text(
+                        text = coinUiModel.longName,
+                        style = BaseTheme.textStyle.t14.copy(color = colors.onBackgroundText)
+                    )
+                }
+
+
             }
-
-
-        }
-
-        Box(modifier = Modifier.size(BaseTheme.dimens.graphWidth,
-            BaseTheme.dimens.graphHeight)){
-
             Image(
-                painter = painterResource(
-                    if(coinUiModel.isUp) Drawables.increasing_line
-                         else Drawables.decreasing_line ),
-                contentDescription = null
-            )
-
-        }
-
-        Column(
-            horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.spacedBy(BaseTheme.dimens.dp01)
-        ) {
-            Text(
-                text = coinUiModel.price.priceFormat(),
-                style = BaseTheme.textStyle.t16.copy(color = colors.onBackgroundText)
+                    painter = painterResource(
+                        if (coinUiModel.isUp) Drawables.increasing_line
+                        else if(coinUiModel.percentChange== 0.0) Drawables.stabil__line
+                        else Drawables.decreasing_line
+                    ),
+                    modifier = Modifier.size(
+                        BaseTheme.dimens.graphWidth,
+                        BaseTheme.dimens.graphHeight
+                    ),
+                    contentDescription = null
                 )
-            Text(
-                text = if(coinUiModel.isUp) "+${coinUiModel.changePercent.percentFormat()}%"
-                else "${coinUiModel.changePercent.percentFormat()}$",
-                color = if(coinUiModel.isUp) colors.onBackgroundUp else colors.onBackgroundDown)
+
+
+
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.spacedBy(BaseTheme.dimens.dp01)
+            ) {
+                Text(
+                    text = coinUiModel.price.priceFormat(),
+                    style = BaseTheme.textStyle.t16.copy(color = colors.onBackgroundText)
+                )
+                Text(
+                    text = if (coinUiModel.isUp) "+${coinUiModel.percentChange.percentFormat()}%"
+                    else "${coinUiModel.percentChange.percentFormat()}%",
+                    color = if (coinUiModel.isUp) colors.onBackgroundUp
+                    else if(coinUiModel.percentChange== 0.0)  colors.stableColor
+                        else colors.onBackgroundDown
+                )
+
+            }
 
         }
 
     }
-
 }

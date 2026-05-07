@@ -12,30 +12,39 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import com.example.crypto_app_socket.core.BaseTheme
+import com.example.crypto_app_socket.core.util.percentFormat
+import com.example.crypto_app_socket.core.util.toDate
+import com.example.crypto_app_socket.core.util.toTime
+import com.example.crypto_app_socket.domain.uimodel.CoinUpdateUiModel
+import com.example.crypto_app_socket.ui.theme.LocalColors
 
 @Composable
 fun HistoryItem(
-    time: String,
-    date: String,
-    change: String,
-    isPositive: Boolean) {
+    updateModel: CoinUpdateUiModel
+) {
+    val colors = LocalColors.current
+    val isUp = updateModel.isUp ?: false
+    val percent = updateModel.percentChange.percentFormat()
+    val time = updateModel.timestamp.toTime()
+    val date = updateModel.timestamp.toDate()
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(BaseTheme.dimens.dp2),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row {
-            Text(text = time, color = Color.White, fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = date, color = Color.Gray)
+            Text(text = time, color = Color.White, style = BaseTheme.textStyle.t16.copy(fontWeight = FontWeight.W400))
+            Spacer(modifier = Modifier.width(BaseTheme.dimens.dp01))
+            Text(text = date, color = Color.Gray, style = BaseTheme.textStyle.t14)
         }
-        Text(
-            text = change,
-            color = if (isPositive) Color.Green else Color.Red,
-            fontWeight = FontWeight.Medium
-        )
+        Text(text = if(isUp) "+$percent%" else "$percent%" ,
+            color = if(isUp) colors.onBackgroundUp
+            else if (updateModel.percentChange == 0.0) colors.stableColor
+            else colors.onBackgroundDown,
+            style = BaseTheme.textStyle.t12)
+
     }
 }

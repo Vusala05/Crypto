@@ -1,7 +1,8 @@
 package com.example.crypto_app_socket.presentation.detail
 
 import com.example.crypto_app_socket.domain.uimodel.CoinUiModel
-import com.example.crypto_app_socket.presentation.home.HomeContract
+import com.example.crypto_app_socket.domain.uimodel.CoinUpdateUiModel
+import com.example.crypto_app_socket.presentation.detail.model.ChartPointModel
 
 object DetailContract {
 
@@ -14,6 +15,9 @@ object DetailContract {
     }
 
     data class State(
-        val coinDetail : CoinUiModel = CoinUiModel.empty
+        val coinDetail : CoinUiModel = CoinUiModel.empty,
+        val historyList : List<CoinUpdateUiModel> = emptyList(),
+        val chartHistoryList : List<ChartPointModel> = emptyList(),
+        val updatedPercentChange : List<String> = emptyList()
     )
 }

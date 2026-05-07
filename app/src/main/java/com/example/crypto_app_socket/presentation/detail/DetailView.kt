@@ -19,6 +19,7 @@ fun DetailView(
     }
     DetailContent(
         state = state,
+        onClick = navController::popBackStack
         )
 
 }
