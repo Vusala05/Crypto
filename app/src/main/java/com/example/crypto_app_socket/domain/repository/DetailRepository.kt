@@ -9,7 +9,7 @@ interface DetailRepository {
 
     suspend fun getDetailRepository(id : String): ContentState<CoinUiModel>
 
-    fun subscribeDetailCoin(id : String)
+    suspend fun subscribeDetailCoin(id : String)
 
     fun observeCoinUpdate (event : String) : Flow<CoinUpdateUiModel>
 }

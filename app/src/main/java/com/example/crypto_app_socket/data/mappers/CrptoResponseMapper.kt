@@ -1,6 +1,5 @@
 package com.example.crypto_app_socket.data.mappers
 
-import com.example.crypto_app_socket.core.constants.StatusState
 import com.example.crypto_app_socket.data.model.CoinModel
 import com.example.crypto_app_socket.data.model.CoinUpdateModel
 import com.example.crypto_app_socket.domain.uimodel.CoinUiModel

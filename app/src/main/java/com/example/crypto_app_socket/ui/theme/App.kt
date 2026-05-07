@@ -12,7 +12,8 @@ fun App(){
     Scaffold() { innerPadding ->
         MainRoutes(
             navController = navController,
-            paddingValues = innerPadding)
+            paddingValues = innerPadding
+        )
 
     }
 }

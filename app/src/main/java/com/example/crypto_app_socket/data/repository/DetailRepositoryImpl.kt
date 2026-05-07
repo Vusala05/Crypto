@@ -26,7 +26,7 @@ class DetailRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun subscribeDetailCoin(id: String) {
+    override suspend fun subscribeDetailCoin(id: String) {
         socketService.subscribeDetail(id = id)
     }
 

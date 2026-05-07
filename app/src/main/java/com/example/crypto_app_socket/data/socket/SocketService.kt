@@ -20,28 +20,6 @@ class SocketService @Inject constructor(val socket: Socket) {
         if(!isConnected) {
             socket.connect()
             isConnected = true
-
-
-            socket.on(Socket.EVENT_CONNECT) {
-                Log.e("SOCKET_LOG", "BAĞLANDI! ID: ${socket.id()}")
-            }
-
-            socket.on(Socket.EVENT_CONNECT_ERROR) { args ->
-                val error = args[0] as? Exception
-                Log.e("SOCKET_LOG", "BAĞLANTI XƏTASI: ${error?.message ?: "Naməlum xəta"}")
-            }
-
-            socket.on(Socket.EVENT_DISCONNECT) { args ->
-                Log.e("SOCKET_LOG", "BAĞLANTI KƏSİLDİ: ${args[0]}")
-            }
-            socket.on(Socket.EVENT_CONNECT_ERROR) { args ->
-                val err = args[0]
-                Log.e("SOCKET_LOG", "Xəta detalları: $err") // Burada '403' və ya '400' görsən, deməli server səni rədd edir
-            }
-
-
-
-
         }
     }
 
@@ -52,7 +30,6 @@ class SocketService @Inject constructor(val socket: Socket) {
 
     fun subscribeCryptoList(cryptoList: List<String>) {
         val jsonArray = org.json.JSONArray(cryptoList)
-        Log.e("subscribeList", "subscribeList")
         socket.emit("subscribeCryptoList", jsonArray)
     }
 
@@ -69,8 +46,6 @@ class SocketService @Inject constructor(val socket: Socket) {
                 timestamp = json.getString("timestamp")
             )
             trySend(update)
-            Log.e("UPDATE DATA", update.price.toString())
-
         }
 
         socket.on(event, listener)

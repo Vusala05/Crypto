@@ -17,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.crypto_app_socket.core.BaseTheme
 import com.example.crypto_app_socket.core.Strings
-import com.example.crypto_app_socket.domain.uimodel.CoinUiModel
 import com.example.crypto_app_socket.presentation.home.components.CoinItem
 import com.example.crypto_app_socket.ui.theme.LocalColors
 import kotlinx.coroutines.flow.SharedFlow

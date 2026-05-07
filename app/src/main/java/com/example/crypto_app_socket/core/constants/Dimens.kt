@@ -13,7 +13,6 @@ object Dimens {
     val detailGraphHeight = 184.dp
 
 
-    val sp01 = 4.sp
     val sp03 = 12.sp
     val sp04 = 16.sp
     val sp07 = 28.sp
@@ -32,6 +31,5 @@ object Dimens {
     val dp07 = 28.dp
     val dp010 = 40.dp
     val dp016 = 64.dp
-    val dp022 = 88.dp
-    val dp030 = 120.dp
+
 }

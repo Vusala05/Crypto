@@ -1,16 +1,13 @@
 package com.example.crypto_app_socket.presentation.detail
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.crypto_app_socket.core.ContentState
-import com.example.crypto_app_socket.data.model.CoinUpdateModel
 import com.example.crypto_app_socket.domain.usecases.FetchCoinDetailUseCase
 import com.example.crypto_app_socket.domain.usecases.ObserveDetailUpdateUseCase
 import com.example.crypto_app_socket.domain.usecases.SubscribeCoinDetailUseCase
 import com.example.crypto_app_socket.presentation.detail.model.ChartPointModel
 import com.example.crypto_app_socket.presentation.extensions.updateWith
-import com.example.crypto_app_socket.presentation.home.HomeContract
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -52,11 +49,9 @@ class DetailViewModel @Inject constructor(
             when(val res = fetchCoinDetailUseCase(id = id)) {
                 is ContentState.Error -> {
                     _effect.emit(DetailContract.Effect.ShowError(res.message))
-                    Log.e("errorrrDetail", res.message)
                 }
                 is ContentState.Success -> {
                     _state.update { it.copy(coinDetail = res.data) }
-                    Log.e("DETAIL_ID", id)
                     subscribeCoinDetailUseCase(id = id)
                 }
 
