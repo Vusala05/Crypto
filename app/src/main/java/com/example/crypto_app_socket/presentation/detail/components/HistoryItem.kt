@@ -17,6 +17,8 @@ import com.example.crypto_app_socket.core.util.percentFormat
 import com.example.crypto_app_socket.core.util.toDate
 import com.example.crypto_app_socket.core.util.toTime
 import com.example.crypto_app_socket.domain.uimodel.CoinUpdateUiModel
+import com.example.crypto_app_socket.presentation.extensions.changeTextState
+import com.example.crypto_app_socket.presentation.extensions.colorStateChange
 import com.example.crypto_app_socket.ui.theme.LocalColors
 
 @Composable
@@ -24,8 +26,6 @@ fun HistoryItem(
     updateModel: CoinUpdateUiModel
 ) {
     val colors = LocalColors.current
-    val isUp = updateModel.isUp ?: false
-    val percent = updateModel.percentChange.percentFormat()
     val time = updateModel.timestamp.toTime()
     val date = updateModel.timestamp.toDate()
     Row(
@@ -40,10 +40,8 @@ fun HistoryItem(
             Spacer(modifier = Modifier.width(BaseTheme.dimens.dp01))
             Text(text = date, color = Color.Gray, style = BaseTheme.textStyle.t14)
         }
-        Text(text = if(isUp) "+$percent%" else "$percent%" ,
-            color = if(isUp) colors.onBackgroundUp
-            else if (updateModel.percentChange == 0.0) colors.stableColor
-            else colors.onBackgroundDown,
+        Text(text = updateModel.changeTextState() ,
+            color = updateModel.colorStateChange(colors),
             style = BaseTheme.textStyle.t12)
 
     }

@@ -22,6 +22,9 @@ import com.example.crypto_app_socket.core.Drawables
 import com.example.crypto_app_socket.core.util.percentFormat
 import com.example.crypto_app_socket.core.util.priceFormat
 import com.example.crypto_app_socket.domain.uimodel.CoinUiModel
+import com.example.crypto_app_socket.presentation.extensions.changeTextState
+import com.example.crypto_app_socket.presentation.extensions.colorStateChange
+import com.example.crypto_app_socket.presentation.extensions.lineIconChange
 import com.example.crypto_app_socket.ui.theme.LocalColors
 
 @Composable
@@ -31,6 +34,9 @@ fun CoinItem(
     onClick : (String) -> Unit
 ) {
     val colors = LocalColors.current
+    val lineIconState = coinUiModel.lineIconChange()
+    val textState = coinUiModel.changeTextState()
+    val colorState = coinUiModel.colorStateChange(colors)
     Box(modifier = Modifier.padding(vertical = BaseTheme.dimens.dp04)) {
         Row(
             modifier = modifier
@@ -65,11 +71,7 @@ fun CoinItem(
 
             }
             Image(
-                    painter = painterResource(
-                        if (coinUiModel.isUp) Drawables.increasing_line
-                        else if(coinUiModel.percentChange== 0.0) Drawables.stabil__line
-                        else Drawables.decreasing_line
-                    ),
+                    painter = painterResource(lineIconState),
                     modifier = Modifier.size(
                         BaseTheme.dimens.graphWidth,
                         BaseTheme.dimens.graphHeight
@@ -88,11 +90,8 @@ fun CoinItem(
                     style = BaseTheme.textStyle.t16.copy(color = colors.onBackgroundText)
                 )
                 Text(
-                    text = if (coinUiModel.isUp) "+${coinUiModel.percentChange.percentFormat()}%"
-                    else "${coinUiModel.percentChange.percentFormat()}%",
-                    color = if (coinUiModel.isUp) colors.onBackgroundUp
-                    else if(coinUiModel.percentChange== 0.0)  colors.stableColor
-                        else colors.onBackgroundDown
+                    text = textState,
+                    color = colorState
                 )
 
             }

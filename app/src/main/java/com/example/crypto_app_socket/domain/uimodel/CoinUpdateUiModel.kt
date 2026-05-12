@@ -2,8 +2,8 @@ package com.example.crypto_app_socket.domain.uimodel
 
 data class CoinUpdateUiModel(
     val name: String,
-    val price: Double,
+    override val price: Double,
     val timestamp: String,
-    val isUp : Boolean?,
-    val percentChange : Double?,
-)
+    override val isUp : Boolean?,
+    override val percentChange : Double?,
+) : ComingUpdatedData

@@ -5,10 +5,10 @@ data class CoinUiModel(
     val shortName: String,
     val longName: String,
     val image: String,
-    val price: Double,
-    val percentChange: Double,
-    val isUp: Boolean,
-) {
+    override val price: Double?,
+    override val percentChange: Double?,
+    override val isUp: Boolean?,
+) : ComingUpdatedData {
     companion object {
         val empty = CoinUiModel(
             id = "",

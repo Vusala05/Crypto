@@ -33,6 +33,9 @@ import com.example.crypto_app_socket.core.util.percentFormat
 import com.example.crypto_app_socket.core.util.priceFormat
 import com.example.crypto_app_socket.presentation.detail.components.CryptoChart
 import com.example.crypto_app_socket.presentation.detail.components.HistoryItem
+import com.example.crypto_app_socket.presentation.extensions.changeTextState
+import com.example.crypto_app_socket.presentation.extensions.circleIconChange
+import com.example.crypto_app_socket.presentation.extensions.colorStateChange
 import com.example.crypto_app_socket.ui.theme.LocalColors
 
 @Composable
@@ -40,9 +43,10 @@ fun DetailContent(
     state: DetailContract.State,
     onClick : () -> Unit
     ){
-    val isUp = state.coinDetail.isUp
-    val percent = state.coinDetail.percentChange.percentFormat()
     val colors = LocalColors.current
+    val colorState = state.coinDetail.colorStateChange(colors)
+    val textState = state.coinDetail.changeTextState()
+    val iconState = state.coinDetail.circleIconChange()
 
     Scaffold(
         topBar = {
@@ -87,21 +91,14 @@ fun DetailContent(
             Row(verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start,
                 modifier = Modifier.padding(start = BaseTheme.dimens.dp04)) {
-                Icon(painter = painterResource(
-                    if (isUp) Drawables.arrow_circle_increasing
-                else if(state.coinDetail.percentChange == 0.0) Drawables.arrow_circle_stabil
-                else Drawables.arrow_circle_decreasing),
+                Icon(painter = painterResource(iconState),
                     contentDescription = null,
-                    tint = if (isUp) colors.onBackgroundUp
-                    else if (state.coinDetail.percentChange == 0.0) colors.stableColor
-                    else colors.onBackgroundDown,
+                    tint = state.coinDetail.colorStateChange(colors),
                     modifier = Modifier.size(BaseTheme.dimens.arrow_circle))
 
                 Spacer(modifier = Modifier.height(BaseTheme.dimens.dp01))
-                Text(text = if(isUp) "+$percent%" else "$percent%" ,
-                    color = if(isUp) colors.onBackgroundUp
-                    else if (state.coinDetail.percentChange == 0.0) colors.stableColor
-                    else colors.onBackgroundDown,
+                Text(text = textState ,
+                    color = colorState,
                     style = BaseTheme.textStyle.t14.copy(fontWeight = FontWeight.W500))
             }
             Spacer(modifier = Modifier.height(BaseTheme.dimens.dp05))
